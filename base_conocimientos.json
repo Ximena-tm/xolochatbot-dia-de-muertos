@@ -445,6 +445,41 @@
       "respuesta": "No tengo información de que el Día de Muertos se celebre en el espacio ni en otros planetas o astros. Mis fuentes lo describen como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. Si quieres, pregúntame ¿Qué es el Día de Muertos? y te cuento.",
       "fuentes": []
     },
+    "otros_paises": {
+      "keywords": [
+        "solo en mexico",
+        "solo mexico",
+        "solo se celebra",
+        "solo se hace",
+        "solo se festeja",
+        "solo de mexico",
+        "unicamente en mexico",
+        "exclusivo de mexico",
+        "solamente en mexico",
+        "otros paises",
+        "otro pais",
+        "fuera de mexico",
+        "extranjero",
+        "estados unidos",
+        "guatemala",
+        "espana",
+        "colombia",
+        "argentina",
+        "peru",
+        "chile",
+        "brasil",
+        "bolivia",
+        "ecuador",
+        "cuba",
+        "europa",
+        "asia",
+        "africa",
+        "japon",
+        "china"
+      ],
+      "respuesta": "Mis fuentes presentan el Día de Muertos como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. No tengo información sobre si se celebra, o cómo, en otros países.",
+      "fuentes": ["INAFED", "SRE", "EMBAJADA", "CNN"]
+    },
     "sin_coincidencia": {
       "respuesta": "No tengo una respuesta segura para eso. Puedes preguntarme por la fecha, el origen, cómo poner una ofrenda, sus elementos, el cempasúchil, el pan de muerto, las calaveras y la Catrina, cómo se celebra en distintas regiones o la diferencia con Halloween.",
       "fuentes": []

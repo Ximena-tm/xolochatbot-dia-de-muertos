@@ -45,16 +45,17 @@ class MotorInferencia:
 
     def corregir(self, pregunta):
         """Corrige errores de ortografía: cada palabra desconocida se cambia por
-        la palabra más parecida del vocabulario (máx. 1 error; 2 si tiene 9+ letras)."""
+        la palabra más parecida del vocabulario (máx. 1 error; 2 si tiene 9+ letras). Solo corrige palabras de 5+ letras
+        que empiecen con la misma letra, para no alterar palabras comunes como "solo"."""
         salida = []
         for w in pregunta.split():
-            if w in self.vocab or len(w) < 4:
+            if w in self.vocab or len(w) < 5:
                 salida.append(w)
                 continue
             tope = 2 if len(w) >= 9 else 1
             mejor, mejor_d = w, tope + 1
             for v in self.vocab:
-                if len(v) < 4 or abs(len(v) - len(w)) > tope:
+                if v[0] != w[0] or abs(len(v) - len(w)) > tope:
                     continue
                 d = distancia(w, v)
                 if d < mejor_d:
@@ -74,6 +75,10 @@ class MotorInferencia:
         # 1) Preguntas fuera del dominio (p. ej. "¿en Marte?")
         if self._puntaje(q, fb["fuera_de_dominio"]["keywords"]) > 0:
             return fb["fuera_de_dominio"]["respuesta"], [], "fuera_de_dominio"
+        # 1b) Preguntas sobre otros países (las fuentes solo hablan de México)
+        op = fb.get("otros_paises")
+        if op and self._puntaje(q, op["keywords"]) > 0:
+            return op["respuesta"], [self.kb["fuentes"][f] for f in op["fuentes"]], "otros_paises"
         # 2) Regla con mayor puntaje
         mejor, mejor_p = None, 0
         reglas = self.kb["reglas"] + self.kb.get("personaje", {}).get("reglas", [])

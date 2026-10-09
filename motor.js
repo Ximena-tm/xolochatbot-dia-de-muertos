@@ -30,11 +30,11 @@ class MotorInferencia {
   // Corrige errores de ortografía: máx. 1 error (2 si la palabra tiene 9+ letras).
   corregir(pregunta) {
     return pregunta.split(" ").map(w => {
-      if (this.vocab.has(w) || w.length < 4) return w;
+      if (this.vocab.has(w) || w.length < 5) return w;
       const tope = w.length >= 9 ? 2 : 1;
       let mejor = w, mejorD = tope + 1;
       for (const v of this.vocab) {
-        if (v.length < 4 || Math.abs(v.length - w.length) > tope) continue;
+        if (v[0] !== w[0] || Math.abs(v.length - w.length) > tope) continue;
         const d = distancia(w, v);
         if (d < mejorD) { mejor = v; mejorD = d; }
       }
@@ -56,6 +56,9 @@ class MotorInferencia {
     const fb = this.kb.fallback;
     if (this.puntaje(q, fb.fuera_de_dominio.keywords) > 0)
       return { respuesta: fb.fuera_de_dominio.respuesta, fuentes: [], regla: "fuera_de_dominio" };
+    const op = fb.otros_paises;
+    if (op && this.puntaje(q, op.keywords) > 0)
+      return { respuesta: op.respuesta, fuentes: this.fuentesDe(op.fuentes), regla: "otros_paises" };
     const reglas = this.kb.reglas.concat((this.kb.personaje || {}).reglas || []);
     let mejor = null, mejorP = 0;
     for (const r of reglas) {
