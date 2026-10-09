@@ -11,7 +11,7 @@ CASOS = [
     ("¿Cómo se celebra en Oaxaca?", "regiones"), ("¿Es lo mismo que Halloween?", "halloween"),
     ("¿Es Patrimonio de la Humanidad por la UNESCO?", "unesco"), ("¿Dónde coloco el altar en mi casa?", "ubicacion_altar"),
     ("¿Qué comida se pone en la ofrenda?", "comida_ofrenda"), ("¿Cómo se hace el pan de muerto?", "receta_pan_muerto"),
-    ("¿Qué significa el papel picado?", "papel_picado"), ("¿Qué es el Mictlán?", "mictlan"),
+    ("¿Qué significa el papel picado?", "papel_picado"), ("¿Qué es el Mictlán?", "mictlan"), ("cuéntame sobre eso", "que_es"), ("cuentame mas", "que_es"), ("cuéntame sobre las ofrendas", "como_ofrenda"),
     ("¿Quién creó a la Catrina?", "catrina"), ("¿Qué es una calavera literaria?", "calavera_literaria"),
     ("¿Quién es el xoloitzcuintle?", "xoloitzcuintle"), ("¿Quién eres?", "quien_eres"), ("Hola", "saludo"),
     ("¿En Marte se hace Día de Muertos?", "fuera_de_dominio"), ("¿Y en Júpiter?", "fuera_de_dominio"),
