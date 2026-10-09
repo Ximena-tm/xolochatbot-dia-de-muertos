@@ -24,7 +24,7 @@ flowchart LR
 | Componente de un SE | En este proyecto |
 |---|---|
 | Experto del dominio | Las fuentes documentales |
-| Ingeniero del conocimiento | El equipo: extrae y contrasta la información |
+| Ingeniero del conocimiento | La ingeniera extrae y contrasta la información |
 | Base de conocimientos | `base_conocimientos.json`: reglas de producción con palabras clave, respuesta y fuentes |
 | Motor de inferencia | `chatbot.py` (Python) y `motor.js` (misma lógica para la web) |
 | Interfaz | Consola (`chatbot.py`) y web (`index.html`) |
