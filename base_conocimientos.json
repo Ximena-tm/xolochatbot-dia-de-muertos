@@ -21,9 +21,15 @@
       "id": "que_es",
       "pregunta_ejemplo": "¿Qué es el Día de Muertos?",
       "keywords": [
-        "que es",
         "dia de muertos",
-        "significa",
+        "dia de los muertos",
+        "que es esto",
+        "que es esta fiesta",
+        "que es esta celebracion",
+        "que es esta tradicion",
+        "que es la fiesta",
+        "que es la celebracion",
+        "que es la tradicion",
         "en que consiste",
         "de que trata",
         "cuentame sobre eso",
@@ -420,6 +426,13 @@
         "XOLO",
         "ECONOMISTA"
       ]
+    }
+    ,{
+      "id": "sincretismo",
+      "pregunta_ejemplo": "¿Qué es el sincretismo?",
+      "keywords": ["sincretismo", "sincretico", "sincretica", "mezcla de culturas"],
+      "respuesta": "En las fuentes, el sincretismo es la mezcla entre los rituales prehispánicos de culto a los muertos y el calendario católico que trajeron los españoles; de ahí nacería el Día de Muertos actual. No todas las fuentes coinciden: el historiador Víctor Joel Santos (INAH) sostiene que las fiestas del 1 y 2 de noviembre son de origen europeo medieval y que los rituales mesoamericanos eran distintos y en otras fechas.",
+      "fuentes": ["INAFED", "SADER", "CNN", "INAH"]
     }
   ],
   "fallback": {
