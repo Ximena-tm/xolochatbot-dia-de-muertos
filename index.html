@@ -5,65 +5,190 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Xolo, guía del Día de Muertos</title>
 <style>
-:root{--bg:#2a1240;--card:#3b1d58;--naranja:#f59f00;--crema:#fff4dc;--texto:#2b1b3d}
+:root{--noche:#14061f;--morado:#2a1240;--naranja:#f59f00;--crema:#fff4dc;--texto:#2b1b3d;--fantasma:#7ee8d0}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:var(--bg);font-family:system-ui,Segoe UI,Arial,sans-serif;color:var(--crema);display:flex;justify-content:center}
-.app{width:100%;max-width:760px;display:flex;flex-direction:column;height:100vh}
-header{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-bottom:3px solid var(--naranja)}
-header svg{width:64px;height:70px;flex:none}
-header h1{font-size:1.2rem;margin:0}
-header p{margin:2px 0 0;font-size:.82rem;opacity:.8}
+html,body{height:100%;margin:0}
+body{background:
+ radial-gradient(1.5px 1.5px at 12% 18%,#fff9,transparent),radial-gradient(1px 1px at 30% 40%,#fff8,transparent),
+ radial-gradient(1.5px 1.5px at 55% 12%,#fff9,transparent),radial-gradient(1px 1px at 72% 35%,#fff7,transparent),
+ radial-gradient(1.5px 1.5px at 88% 20%,#fff9,transparent),radial-gradient(1px 1px at 45% 60%,#fff6,transparent),
+ radial-gradient(ellipse at 50% 100%,#4a1d6b 0,var(--morado) 45%,var(--noche) 100%);
+ font-family:system-ui,Segoe UI,Arial,sans-serif;color:var(--crema);overflow:hidden}
+button{font:inherit}button[hidden]{display:none}
+
+/* ---------- decoración común ---------- */
+#fondo{position:fixed;left:0;right:0;bottom:0;height:26vh;opacity:.9;pointer-events:none;
+ background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 90' preserveAspectRatio='xMidYMax slice'><g fill='%23090212' fill-opacity='.75'><path d='M60 90V40H48v-8h12V18h8v14h12v8H68v50zM250 90V52h-10v-7h10V30h7v15h10v7h-10v38zM340 90V60h-8v-6h8V42h6v12h8v6h-8v30z'/><path d='M0 90V68h4V58h4v10h12V58h4v10h12V58h4v10h12V58h4v10h12V58h4v10h4v22zM300 90V74h6V64h4v10h16V64h4v10h16V64h4v10h6v16z'/></g></svg>") repeat-x bottom/auto 100%}
+#banderas{position:fixed;top:0;left:0;right:0;height:50px;display:flex;overflow:hidden;z-index:5;pointer-events:none;border-top:3px solid #c9a0a8}
+.flag{flex:none;width:48px;height:44px;transform-origin:50% 0;animation:sway 3.2s ease-in-out infinite alternate;filter:drop-shadow(0 3px 4px #0008)}
+@keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+.petal{position:absolute;top:-6vh;width:12px;height:16px;border-radius:100% 0 100% 0;background:linear-gradient(135deg,#ffd43b,#f59f00 60%,#e8590c);opacity:.85;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(36px,55vh) rotate(260deg)}100%{transform:translate(-14px,112vh) rotate(540deg)}}
+.capa{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bruma{position:absolute;left:-20%;right:-20%;bottom:-10%;height:55%;pointer-events:none;filter:blur(26px);opacity:.5;
+ background:radial-gradient(ellipse at 20% 60%,#fff6 0,transparent 55%),radial-gradient(ellipse at 70% 50%,#d9c8ff55 0,transparent 55%),radial-gradient(ellipse at 45% 80%,#fff5 0,transparent 50%);
+ animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translateX(-5%)}to{transform:translateX(5%) translateY(-4%)}}
+.vela{position:relative;width:54px;height:74px;border-radius:6px 6px 4px 4px;background:linear-gradient(90deg,#e9d9b4,#fff4dc 40%,#f1e2bd)}
+.llama{position:absolute;left:50%;bottom:100%;width:18px;height:36px;margin:0 0 3px -9px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
+ background:radial-gradient(ellipse at 50% 72%,#fffbe0 0,#ffd43b 38%,#f59f00 66%,transparent 76%);box-shadow:0 0 34px 14px #f59f0077;
+ transform-origin:50% 100%;animation:llama .9s ease-in-out infinite}
+.llama::after{content:"";position:absolute;left:50%;top:70%;width:2px;height:8px;margin-left:-1px;background:#2a1a10}
+@keyframes llama{0%,100%{transform:scale(1,1) rotate(-2deg)}25%{transform:scale(.94,1.1) rotate(1.5deg)}50%{transform:scale(1.06,.95) rotate(-1deg)}75%{transform:scale(.97,1.12) rotate(2deg)}}
+.xolo svg{display:block;width:100%;height:auto;overflow:visible}
+.cola{transform-origin:150px 190px;animation:mueve 1.2s ease-in-out infinite}
+@keyframes mueve{50%{transform:rotate(14deg)}}
+
+/* ---------- introducción ---------- */
+#intro{position:fixed;inset:0;z-index:20;background:#0a0312;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px 20px;transition:opacity 1.4s}
+#intro.fuera{opacity:0;pointer-events:none}
+#intro .luz{position:absolute;inset:0;opacity:0;transition:opacity 3s;background:radial-gradient(circle at 50% 68%,#6a2f96 0,#2a1240 42%,#0a0312 80%)}
+#intro.on .luz{opacity:1}
+#intro #banderas{opacity:.18;transition:opacity 3s}
+#intro.on #banderas{opacity:1}
+#intro .bruma{opacity:0;transition:opacity 3s 1s}
+#intro.on .bruma{opacity:.8}
+.escena{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:420px}
+#xoloIntro{width:min(46vw,190px);opacity:0;filter:blur(14px) drop-shadow(0 0 0 transparent);transform:translateY(34px) scale(.8);transition:opacity 3.6s 2s,filter 3.6s 2s,transform 3.6s 2s}
+#intro.on #xoloIntro{opacity:.95;filter:blur(0) drop-shadow(0 0 18px #7ee8d0aa);transform:none;animation:flota 4s 5.6s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-8px)}}
+#intro .vela .llama{transform:scale(0);animation:none;opacity:0;transition:opacity 1s,transform 1s}
+#intro.on .vela .llama{transform:scale(1);opacity:1;animation:llama .9s ease-in-out infinite}
+#intro:not(.on) .vela{opacity:.55}
+#introTxt{min-height:3.4em;margin:6px 0 0;font-size:1.1rem;line-height:1.5;text-shadow:0 2px 8px #000}
+.boton{background:var(--naranja);color:#2b1b00;border:none;border-radius:24px;padding:12px 28px;font-weight:700;cursor:pointer;box-shadow:0 0 22px #f59f0088;animation:late 2s ease-in-out infinite}
+@keyframes late{50%{box-shadow:0 0 36px #f59f00cc}}
+#saltar{position:absolute;right:14px;bottom:12px;background:none;border:none;color:#fff9;text-decoration:underline;cursor:pointer;font-size:.85rem;z-index:2}
+
+/* ---------- chat ---------- */
+.app{position:relative;z-index:2;width:100%;max-width:760px;height:100vh;height:100dvh;margin:0 auto;display:flex;flex-direction:column;
+ background:#14061f99;box-shadow:0 0 50px #f59f0026,inset 0 0 0 1px #f59f0040}
+header{display:flex;align-items:center;gap:12px;padding:56px 16px 8px}
+#xoloHead{width:64px;flex:none;filter:drop-shadow(0 0 10px #7ee8d0bb);animation:flota 4s ease-in-out infinite}
+header h1{font-size:1.15rem;margin:0}
+header p{margin:2px 0 0;font-size:.8rem;opacity:.8}
+.guirnalda{flex:none;height:20px;background:radial-gradient(circle at 11px 10px,#ffd43b 0 3px,#f59f00 4px 8px,#e8590c 9px 10px,transparent 11px) 0 0/22px 20px repeat-x}
 #chat{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:85%;padding:10px 14px;border-radius:16px;line-height:1.45;white-space:pre-line}
-.xolo{align-self:flex-start;background:var(--crema);color:var(--texto);border-bottom-left-radius:4px}
+.msg{max-width:85%;padding:10px 14px;border-radius:16px;line-height:1.45;white-space:pre-line;animation:aparece .5s}
+@keyframes aparece{from{opacity:0;transform:translateY(8px)}}
+.xolo-m{align-self:flex-start;background:var(--crema);color:var(--texto);border-bottom-left-radius:4px;box-shadow:0 0 16px #7ee8d055}
 .yo{align-self:flex-end;background:var(--naranja);color:#2b1b00;border-bottom-right-radius:4px}
 .src{display:block;margin-top:8px;font-size:.78rem;color:#6b4a8a;white-space:normal}
 .src b{cursor:help;border-bottom:1px dotted #6b4a8a}
 .escribiendo{opacity:.7;font-style:italic}
 .chips{padding:0 16px 8px}
 .chips summary{cursor:pointer;font-size:.85rem;color:var(--naranja);margin-bottom:6px}
-.chips div{display:flex;flex-wrap:wrap;gap:6px;max-height:110px;overflow-y:auto}
-.chip{background:transparent;border:1px solid var(--naranja);color:var(--crema);border-radius:14px;padding:4px 10px;font-size:.8rem;cursor:pointer}
+.chips div{display:flex;flex-wrap:wrap;gap:6px;max-height:96px;overflow-y:auto}
+.chip{background:#14061f99;border:1px solid var(--naranja);color:var(--crema);border-radius:14px;padding:4px 10px;font-size:.8rem;cursor:pointer}
 .chip:hover{background:var(--naranja);color:#2b1b00}
-form{display:flex;gap:8px;padding:12px 16px;background:var(--card)}
-input{flex:1;padding:10px 14px;border-radius:20px;border:none;font-size:1rem}
+form{display:flex;gap:8px;padding:10px 16px;background:#2a1240cc}
+input{flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:none;font-size:1rem}
 button.enviar{background:var(--naranja);border:none;border-radius:20px;padding:0 20px;font-weight:700;cursor:pointer}
-.cola{transform-origin:150px 190px;animation:mueve 1.2s ease-in-out infinite}
-@keyframes mueve{50%{transform:rotate(14deg)}}
+.velas{flex:none;height:46px;display:flex;justify-content:center;align-items:flex-end;gap:16px;overflow:hidden;padding-top:12px;background:linear-gradient(#0000,#0a0312cc)}
+.v{position:relative;flex:none;width:16px;border-radius:3px 3px 0 0;background:linear-gradient(90deg,#e9d9b4,#fff4dc 40%,#f1e2bd)}
+.v .llama{width:7px;height:14px;margin:0 0 1px -3.5px;box-shadow:0 0 14px 6px #f59f0077}
+.v .llama::after{display:none}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
+<div id="fondo"></div>
+<div id="banderas" aria-hidden="true"></div>
+<div class="capa" id="petChat" aria-hidden="true"></div>
+
 <div class="app">
   <header>
-    <svg viewBox="0 0 200 225" aria-label="Xolo, un xoloitzcuintle">
-      <g class="cola"><path d="M146 200 Q186 190 180 150" stroke="#5a5a6a" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M180 150 q4-14 -2-20" stroke="#2c2c36" stroke-width="4" fill="none" stroke-linecap="round"/></g>
-      <path d="M52 72 Q16 22 40 6 Q76 20 84 62Z" fill="#6b6b7b"/><path d="M148 72 Q184 22 160 6 Q124 20 116 62Z" fill="#6b6b7b"/>
-      <path d="M52 62 Q36 30 44 16 Q66 28 72 58Z" fill="#c9a0a8"/><path d="M148 62 Q164 30 156 16 Q134 28 128 58Z" fill="#c9a0a8"/>
-      <ellipse cx="100" cy="172" rx="48" ry="46" fill="#5a5a6a"/>
-      <ellipse cx="78" cy="214" rx="17" ry="9" fill="#6b6b7b"/><ellipse cx="122" cy="214" rx="17" ry="9" fill="#6b6b7b"/>
-      <ellipse cx="100" cy="92" rx="50" ry="47" fill="#6b6b7b"/>
-      <path d="M92 46 q-4-14 -10-18 M100 45 q0-16 0-22 M108 46 q4-14 10-18" stroke="#2c2c36" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M80 62 q20-8 40 0 M84 70 q16-6 32 0" stroke="#55556a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <ellipse cx="100" cy="110" rx="25" ry="19" fill="#8a8a9a"/>
-      <circle cx="82" cy="86" r="8" fill="#fff"/><circle cx="118" cy="86" r="8" fill="#fff"/>
-      <circle cx="83" cy="87" r="4.5" fill="#111"/><circle cx="119" cy="87" r="4.5" fill="#111"/>
-      <circle cx="84.5" cy="85" r="1.5" fill="#fff"/><circle cx="120.5" cy="85" r="1.5" fill="#fff"/>
-      <ellipse cx="100" cy="102" rx="9" ry="6" fill="#222"/>
-      <path d="M90 115 Q100 125 110 115" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <g fill="#f59f00"><circle cx="64" cy="142" r="10"/><circle cx="82" cy="148" r="10"/><circle cx="100" cy="151" r="10"/><circle cx="118" cy="148" r="10"/><circle cx="136" cy="142" r="10"/></g>
-      <g fill="#ffd43b"><circle cx="64" cy="142" r="4"/><circle cx="82" cy="148" r="4"/><circle cx="100" cy="151" r="4"/><circle cx="118" cy="148" r="4"/><circle cx="136" cy="142" r="4"/></g>
-    </svg>
-    <div><h1>Xolo, tu guía del Día de Muertos</h1><p>Respondo solo con lo que dicen mis fuentes.</p></div>
+    <div id="xoloHead" class="xolo" role="img" aria-label="Xolo, un xoloitzcuintle del más allá"></div>
+    <div><h1>Xolo, tu guía del Día de Muertos</h1><p>Vengo del más allá. Respondo solo con lo que dicen mis fuentes.</p></div>
   </header>
+  <div class="guirnalda" aria-hidden="true"></div>
   <div id="chat" role="log" aria-live="polite"></div>
-  <details class="chips" open><summary>Preguntas que puedes hacerme</summary><div id="chips"></div></details>
+  <details class="chips" id="detChips" open><summary>Preguntas que puedes hacerme</summary><div id="chips"></div></details>
   <form id="form">
     <input id="entrada" autocomplete="off" placeholder="Escribe tu pregunta…" aria-label="Tu pregunta">
     <button class="enviar" type="submit">Enviar</button>
   </form>
+  <div class="velas" id="velas" aria-hidden="true"></div>
 </div>
+
+<div id="intro">
+  <div class="luz"></div>
+  <div class="capa" id="petIntro" aria-hidden="true"></div>
+  <div class="bruma"></div>
+  <div class="escena">
+    <div id="xoloIntro" class="xolo" aria-hidden="true"></div>
+    <div class="vela"><div class="llama"></div></div>
+    <p id="introTxt" aria-live="polite">Una vela espera en la oscuridad…</p>
+    <button class="boton" id="btnIntro" type="button">Encender la vela</button>
+  </div>
+  <button id="saltar" type="button">Saltar</button>
+</div>
+
 <script src="motor.js"></script>
 <script>
+const XOLO=`<svg viewBox="0 0 200 225"><g class="cola"><path d="M146 200 Q186 190 180 150" stroke="#5a5a6a" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M180 150 q4-14 -2-20" stroke="#2c2c36" stroke-width="4" fill="none" stroke-linecap="round"/></g><path d="M52 72 Q16 22 40 6 Q76 20 84 62Z" fill="#6b6b7b"/><path d="M148 72 Q184 22 160 6 Q124 20 116 62Z" fill="#6b6b7b"/><path d="M52 62 Q36 30 44 16 Q66 28 72 58Z" fill="#c9a0a8"/><path d="M148 62 Q164 30 156 16 Q134 28 128 58Z" fill="#c9a0a8"/><ellipse cx="100" cy="172" rx="48" ry="46" fill="#5a5a6a"/><ellipse cx="78" cy="214" rx="17" ry="9" fill="#6b6b7b"/><ellipse cx="122" cy="214" rx="17" ry="9" fill="#6b6b7b"/><ellipse cx="100" cy="92" rx="50" ry="47" fill="#6b6b7b"/><path d="M92 46 q-4-14 -10-18 M100 45 q0-16 0-22 M108 46 q4-14 10-18" stroke="#2c2c36" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M80 62 q20-8 40 0 M84 70 q16-6 32 0" stroke="#55556a" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="100" cy="110" rx="25" ry="19" fill="#8a8a9a"/><circle cx="82" cy="86" r="8" fill="#fff"/><circle cx="118" cy="86" r="8" fill="#fff"/><circle cx="83" cy="87" r="4.5" fill="#111"/><circle cx="119" cy="87" r="4.5" fill="#111"/><circle cx="84.5" cy="85" r="1.5" fill="#fff"/><circle cx="120.5" cy="85" r="1.5" fill="#fff"/><ellipse cx="100" cy="102" rx="9" ry="6" fill="#222"/><path d="M90 115 Q100 125 110 115" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/><g fill="#f59f00"><circle cx="64" cy="142" r="10"/><circle cx="82" cy="148" r="10"/><circle cx="100" cy="151" r="10"/><circle cx="118" cy="148" r="10"/><circle cx="136" cy="142" r="10"/></g><g fill="#ffd43b"><circle cx="64" cy="142" r="4"/><circle cx="82" cy="148" r="4"/><circle cx="100" cy="151" r="4"/><circle cx="118" cy="148" r="4"/><circle cx="136" cy="142" r="4"/></g></svg>`;
+document.getElementById("xoloIntro").innerHTML = XOLO;
+document.getElementById("xoloHead").innerHTML = XOLO;
+
+// Papel picado: banderitas con recortes
+const COLORES = ["#f59f00","#be4bdb","#40c057","#fd7e14","#e64980","#7950f2","#fab005","#15aabf"];
+const BANDERA = "M0 0H46V34L40 41L34 34L28 41L23 34L17 41L11 34L6 41L0 34Z M23 8l6 6l-6 6l-6-6Z M23 23l3 3l-3 3l-3-3Z M9 12l3 3l-3 3l-3-3Z M37 12l3 3l-3 3l-3-3Z M8 4h4v3H8Z M17 4h4v3h-4Z M25 4h4v3h-4Z M34 4h4v3h-4Z";
+(function () {
+  const n = Math.ceil(innerWidth / 48) + 1;
+  let h = "";
+  for (let i = 0; i < n; i++)
+    h += `<svg class="flag" viewBox="0 0 46 42" style="animation-delay:-${(Math.random() * 3).toFixed(2)}s"><path fill-rule="evenodd" fill="${COLORES[i % COLORES.length]}" d="${BANDERA}"/></svg>`;
+  document.getElementById("banderas").innerHTML = h;
+})();
+
+// Pétalos de cempasúchil
+function petalos(el, n) {
+  for (let i = 0; i < n; i++) {
+    const p = document.createElement("span");
+    p.className = "petal";
+    const s = 0.6 + Math.random() * 0.9;
+    p.style.cssText = `left:${Math.random() * 100}%;transform:scale(${s});animation-duration:${7 + Math.random() * 8}s;animation-delay:-${Math.random() * 12}s`;
+    el.append(p);
+  }
+}
+petalos(document.getElementById("petChat"), 12);
+
+// Hilera de velas
+(function () {
+  const alturas = [18, 26, 14, 30, 20, 34, 16, 28, 22, 12, 26];
+  document.getElementById("velas").innerHTML = alturas
+    .map((a, i) => `<i class="v" style="height:${a}px"><b class="llama" style="animation-delay:-${(i * 0.37).toFixed(2)}s;animation-duration:${(0.7 + (i % 4) * 0.15).toFixed(2)}s"></b></i>`).join("");
+})();
+document.getElementById("detChips").open = innerWidth >= 600;
+
+// ----- Secuencia de entrada -----
+const intro = document.getElementById("intro"), introTxt = document.getElementById("introTxt"), btn = document.getElementById("btnIntro");
+let entro = false, saludado = false, kb = null;
+
+btn.onclick = () => {
+  if (!intro.classList.contains("on")) {
+    intro.classList.add("on");
+    btn.hidden = true;
+    petalos(document.getElementById("petIntro"), 28);
+    introTxt.textContent = "Las almas ven la luz de la vela…";
+    setTimeout(() => introTxt.textContent = "¡Guau! Soy Xolo. Vengo del Mictlán para guiarte por el Día de Muertos.", 3000);
+    setTimeout(() => { btn.textContent = "Entrar a la ofrenda"; btn.hidden = false; }, 5600);
+  } else entrar();
+};
+document.getElementById("saltar").onclick = entrar;
+
+function entrar() {
+  if (entro) return;
+  entro = true;
+  intro.classList.add("fuera");
+  setTimeout(() => intro.remove(), 1500);
+  saludar();
+}
+function saludar() {
+  if (entro && kb && !saludado) { saludado = true; burbuja("xolo-m", kb.personaje.saludo_inicial); }
+}
+
+// ----- Chat -----
 const chat = document.getElementById("chat");
 let motor;
 
@@ -91,11 +216,11 @@ function preguntar(texto) {
   texto = texto.trim();
   if (!texto || !motor) return;
   burbuja("yo", texto);
-  const espera = burbuja("xolo escribiendo", "Xolo está olfateando sus fuentes…");
+  const espera = burbuja("xolo-m escribiendo", "Xolo está olfateando sus fuentes…");
   setTimeout(() => {
     espera.remove();
     const r = motor.responder(texto);
-    burbuja("xolo", r.respuesta, r.fuentes);
+    burbuja("xolo-m", r.respuesta, r.fuentes);
   }, 600);
 }
 
@@ -107,11 +232,13 @@ document.getElementById("form").addEventListener("submit", e => {
 
 fetch("base_conocimientos.json")
   .then(r => r.json())
-  .then(kb => {
+  .then(datos => {
+    kb = datos;
     motor = new MotorInferencia(kb);
-    burbuja("xolo", kb.personaje.saludo_inicial);
+    saludar();
     const cont = document.getElementById("chips");
     kb.reglas.forEach(r => {
+      if (!r.pregunta_ejemplo) return;
       const c = document.createElement("button");
       c.className = "chip"; c.type = "button";
       c.textContent = r.pregunta_ejemplo;
@@ -119,7 +246,7 @@ fetch("base_conocimientos.json")
       cont.append(c);
     });
   })
-  .catch(() => burbuja("xolo", "No pude cargar mi base de conocimientos. Si abriste el archivo con doble clic, inicia un servidor local con: python -m http.server y entra a http://localhost:8000"));
+  .catch(() => { entro = true; burbuja("xolo-m", "No pude cargar mi base de conocimientos. Si abriste el archivo con doble clic, inicia un servidor local con: python -m http.server y entra a http://localhost:8000"); });
 </script>
 </body>
 </html>
