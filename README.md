@@ -2,7 +2,7 @@
 
 Sistema experto conversacional basado en reglas que responde preguntas sobre el Día de Muertos en México. El personaje es **Xolo**, un xoloitzcuintle: según la leyenda, el perro que guía a las almas al Mictlán.
 
-**Pruébalo en línea:** [Xolo en GitHub Pages]([https://ximena-tm.github.io/xolochatbot-dia-de-muertos/]) 
+**Pruébalo en línea:** [Xolo en GitHub Pages](https://ximena-tm.github.io/xolochatbot-dia-de-muertos/) 
 
 Proyecto individual de la materia de Sistemas Inteligentes (unidad de Sistemas Expertos). **El experto del dominio son las fuentes documentales** listadas abajo: el sistema no usa conocimiento externo y cada respuesta indica de qué fuentes proviene.
 
