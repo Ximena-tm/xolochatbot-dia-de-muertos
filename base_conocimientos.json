@@ -1,7 +1,7 @@
 {
   "meta": {
     "tema": "Día de Muertos en México",
-    "version": "0.4",
+    "version": "0.5",
     "nota": "El experto del sistema son únicamente las fuentes listadas. Keywords en minúsculas y sin acentos."
   },
   "fuentes": {
@@ -426,13 +426,23 @@
         "XOLO",
         "ECONOMISTA"
       ]
-    }
-    ,{
+    },
+    {
       "id": "sincretismo",
       "pregunta_ejemplo": "¿Qué es el sincretismo?",
-      "keywords": ["sincretismo", "sincretico", "sincretica", "mezcla de culturas"],
+      "keywords": [
+        "sincretismo",
+        "sincretico",
+        "sincretica",
+        "mezcla de culturas"
+      ],
       "respuesta": "En las fuentes, el sincretismo es la mezcla entre los rituales prehispánicos de culto a los muertos y el calendario católico que trajeron los españoles; de ahí nacería el Día de Muertos actual. No todas las fuentes coinciden: el historiador Víctor Joel Santos (INAH) sostiene que las fiestas del 1 y 2 de noviembre son de origen europeo medieval y que los rituales mesoamericanos eran distintos y en otras fechas.",
-      "fuentes": ["INAFED", "SADER", "CNN", "INAH"]
+      "fuentes": [
+        "INAFED",
+        "SADER",
+        "CNN",
+        "INAH"
+      ]
     }
   ],
   "fallback": {
@@ -491,7 +501,12 @@
         "china"
       ],
       "respuesta": "Mis fuentes presentan el Día de Muertos como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. No tengo información sobre si se celebra, o cómo, en otros países.",
-      "fuentes": ["INAFED", "SRE", "EMBAJADA", "CNN"]
+      "fuentes": [
+        "INAFED",
+        "SRE",
+        "EMBAJADA",
+        "CNN"
+      ]
     },
     "sin_coincidencia": {
       "respuesta": "No tengo una respuesta segura para eso. Puedes preguntarme por la fecha, el origen, cómo poner una ofrenda, sus elementos, el cempasúchil, el pan de muerto, las calaveras y la Catrina, cómo se celebra en distintas regiones o la diferencia con Halloween.",
@@ -528,6 +543,36 @@
           "saludos"
         ],
         "respuesta": "¡Guau, hola! Pregúntame sobre el Día de Muertos: fechas, origen, cómo poner una ofrenda, el pan de muerto, la Catrina, el Mictlán o lo que se te ocurra.",
+        "fuentes": []
+      }
+    ]
+  },
+  "cortesia": {
+    "nota": "Frases de cortesía: se ignoran al buscar la regla; si solo queda cortesía (o no hay coincidencia), responde la regla de cortesía.",
+    "reglas": [
+      {
+        "id": "gracias",
+        "keywords": [
+          "muchas gracias",
+          "mil gracias",
+          "gracias xolo",
+          "muchas gracias xolo",
+          "te lo agradezco",
+          "te agradezco",
+          "gracias"
+        ],
+        "respuesta": "¡Guau, de nada! Fue un gusto guiarte. Si te queda alguna duda sobre el Día de Muertos, aquí estoy.",
+        "fuentes": []
+      },
+      {
+        "id": "por_favor",
+        "keywords": [
+          "por favor",
+          "porfavor",
+          "porfa",
+          "xolo por favor"
+        ],
+        "respuesta": "¡Claro, con gusto! Dime qué quieres saber sobre el Día de Muertos: fechas, origen, ofrenda, pan de muerto, la Catrina...",
         "fuentes": []
       }
     ]

@@ -23,7 +23,8 @@ class MotorInferencia {
     this.kb = kb; this.umbral = umbral;
     const listas = [kb.fallback.fuera_de_dominio.keywords]
       .concat(kb.reglas.map(r => r.keywords))
-      .concat(((kb.personaje || {}).reglas || []).map(r => r.keywords));
+      .concat(((kb.personaje || {}).reglas || []).map(r => r.keywords))
+      .concat(((kb.cortesia || {}).reglas || []).map(r => r.keywords));
     this.vocab = new Set(listas.flat().flatMap(k => k.split(" ")));
   }
 
@@ -51,8 +52,22 @@ class MotorInferencia {
     return clave.map(c => ({ clave: c, texto: this.kb.fuentes[c] }));
   }
 
+  // Quita frases de cortesía ("gracias", "por favor") para que no estorben al buscar la regla.
+  quitarCortesia(q) {
+    let reglaC = null;
+    for (const regla of (this.kb.cortesia || {}).reglas || []) {
+      for (const k of [...regla.keywords].sort((a, b) => b.length - a.length)) {
+        if (` ${q} `.includes(` ${k} `)) {
+          q = ` ${q} `.split(` ${k} `).join(" ");
+          reglaC = reglaC || regla;
+        }
+      }
+    }
+    return { q: q.replace(/\s+/g, " ").trim(), cortesia: reglaC };
+  }
+
   responder(pregunta) {
-    const q = this.corregir(normalizar(pregunta));
+    const { q, cortesia } = this.quitarCortesia(this.corregir(normalizar(pregunta)));
     const fb = this.kb.fallback;
     if (this.puntaje(q, fb.fuera_de_dominio.keywords) > 0)
       return { respuesta: fb.fuera_de_dominio.respuesta, fuentes: [], regla: "fuera_de_dominio" };
@@ -65,8 +80,10 @@ class MotorInferencia {
       const p = this.puntaje(q, r.keywords);
       if (p > mejorP) { mejor = r; mejorP = p; }
     }
-    if (!mejor || mejorP < this.umbral)
+    if (!mejor || mejorP < this.umbral) {
+      if (cortesia) return { respuesta: cortesia.respuesta, fuentes: [], regla: cortesia.id };
       return { respuesta: fb.sin_coincidencia.respuesta, fuentes: [], regla: "sin_coincidencia" };
+    }
     return { respuesta: mejor.respuesta, fuentes: this.fuentesDe(mejor.fuentes || []), regla: mejor.id };
   }
 }

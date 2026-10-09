@@ -2,7 +2,9 @@
 
 Sistema experto conversacional basado en reglas que responde preguntas sobre el Día de Muertos en México. El personaje es **Xolo**, un xoloitzcuintle: según la leyenda, el perro que guía a las almas al Mictlán.
 
-Proyecto de la materia de Sistemas Expertos. **El experto del dominio son las fuentes documentales** listadas abajo: el sistema no usa conocimiento externo y cada respuesta indica de qué fuentes proviene.
+**Pruébalo en línea:** [Xolo en GitHub Pages](https://TU-USUARIO.github.io/TU-REPOSITORIO/) <!-- reemplaza con la URL real de tu página -->
+
+Proyecto individual de la materia de Sistemas Inteligentes (unidad de Sistemas Expertos). **El experto del dominio son las fuentes documentales** listadas abajo: el sistema no usa conocimiento externo y cada respuesta indica de qué fuentes proviene.
 
 ## Reto
 
@@ -17,7 +19,7 @@ flowchart LR
     F[Fuentes documentales<br/>experto del dominio] --> K[Adquisición del conocimiento<br/>ingeniero del conocimiento]
     K --> B[(Base de conocimientos<br/>base_conocimientos.json)]
     B <--> M[Motor de inferencia<br/>chatbot.py / motor.js]
-    M <--> I[Interfaz<br/>consola o web con Xolo]
+    M <--> I[Interfaz<br/>página web con Xolo]
     I <--> U((Usuario))
 ```
 
@@ -25,48 +27,43 @@ flowchart LR
 |---|---|
 | Experto del dominio | Las fuentes documentales |
 | Ingeniero del conocimiento | La ingeniera extrae y contrasta la información |
-| Base de conocimientos | `base_conocimientos.json`: reglas de producción con palabras clave, respuesta y fuentes |
-| Motor de inferencia | `chatbot.py` (Python) y `motor.js` (misma lógica para la web) |
-| Interfaz | Consola (`chatbot.py`) y web (`index.html`) |
+| Base de conocimientos | `base_conocimientos.json`: reglas de producción con palabras clave, respuesta y fuentes, más las respuestas de cortesía y del personaje |
+| Motor de inferencia | `motor.js` (el que corre en la página web) y `chatbot.py` (la misma lógica en Python, usada para las pruebas automáticas) |
+| Interfaz | Página web publicada en GitHub Pages (`index.html`) |
 
 ### Cómo razona el motor
 
-1. **Normaliza** la pregunta: minúsculas, sin acentos ni signos.
-2. **Filtro de dominio:** si menciona algo ajeno (Marte, la Luna…), responde que no tiene información.
-3. **Puntaje:** cada regla suma la longitud de las palabras clave que aparecen en la pregunta (las específicas pesan más).
-4. **Selecciona** la regla de mayor puntaje; si no alcanza el umbral (3), responde "sin coincidencia".
-5. **Justifica:** devuelve la respuesta junto con las fuentes de la regla.
+1. **Normaliza** la pregunta: minúsculas, sin acentos ni signos, y corrige errores de ortografía comparándola con el vocabulario de la base.
+2. **Cortesía:** quita frases como "gracias" o "por favor" para que no estorben. Si la pregunta es solo de cortesía (por ejemplo, "gracias"), Xolo responde con amabilidad.
+3. **Filtro de dominio:** si menciona algo ajeno (Marte, la Luna…), responde que no tiene información.
+4. **Puntaje:** cada regla suma la longitud de las palabras clave que aparecen en la pregunta (las específicas pesan más).
+5. **Selecciona** la regla de mayor puntaje; si no alcanza el umbral (3), responde "sin coincidencia".
+6. **Justifica:** devuelve la respuesta junto con las fuentes de la regla.
 
 ## Estructura del repositorio
 
 ```
 .
-├── base_conocimientos.json   # reglas, fuentes y personaje
-├── chatbot.py                # motor de inferencia + interfaz de consola
-├── motor.js                  # el mismo motor en JavaScript
-├── index.html                # interfaz web con Xolo
-├── test_chatbot.py           # pruebas del motor
+├── base_conocimientos.json   # reglas, fuentes, personaje y cortesía
+├── index.html                # interfaz web con Xolo (la página publicada)
+├── motor.js                  # motor de inferencia que usa la página web
+├── chatbot.py                # el mismo motor en Python (base de las pruebas)
+├── test_chatbot.py           # pruebas automáticas del motor
 └── README.md
 ```
 
 ## Uso
 
-Requiere Python 3.8+ (sin dependencias externas).
+**En línea (recomendado):** abre la página publicada con GitHub Pages, escribe tu pregunta o elige una de las sugeridas.
 
-**Consola**
-
-```bash
-python chatbot.py
-```
-
-**Interfaz web** (necesita un servidor local porque carga el JSON):
+**En tu computadora (opcional):** la página carga `base_conocimientos.json`, así que necesita un servidor local; abrir `index.html` con doble clic no funciona.
 
 ```bash
 python -m http.server 8000
 # abre http://localhost:8000
 ```
 
-**Pruebas**
+**Pruebas automáticas** (requieren Python 3.8+, sin dependencias externas):
 
 ```bash
 python test_chatbot.py
@@ -85,6 +82,7 @@ python test_chatbot.py
 | Creencias | ¿Qué es el Mictlán? · ¿Quién es el xoloitzcuintle? |
 | Contexto | ¿Cómo se celebra en Oaxaca? · ¿Es lo mismo que Halloween? · ¿Es Patrimonio de la Humanidad por la UNESCO? |
 | Fuera de dominio | ¿En Marte se hace Día de Muertos? |
+| Personaje y cortesía | ¿Quién eres? · Hola · Gracias · Por favor |
 
 ## Fuentes (el experto)
 
@@ -116,4 +114,4 @@ Cuando las fuentes discrepan, el sistema presenta ambas posturas en lugar de ele
 
 ## Agregar conocimiento
 
-Añade un objeto a `reglas` en `base_conocimientos.json` con `id`, `pregunta_ejemplo`, `keywords` (minúsculas, sin acentos), `respuesta` y `fuentes` (claves de la sección `fuentes`). Agrega un caso a `test_chatbot.py` y corre las pruebas.
+Añade un objeto a `reglas` en `base_conocimientos.json` con `id`, `pregunta_ejemplo`, `keywords` (minúsculas, sin acentos), `respuesta` y `fuentes` (claves de la sección `fuentes`). Agrega un caso a `test_chatbot.py` y corre las pruebas. Las respuestas de cortesía ("gracias", "por favor") están en la sección `cortesia` del mismo archivo.

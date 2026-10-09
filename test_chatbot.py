@@ -18,6 +18,9 @@ CASOS = [
     ("¿Se celebra en jupitr?", "fuera_de_dominio"), ("¿Qué es el pan de muerot?", "pan_muerto"),
     ("¿Qué significa el cempasuchl?", "cempasuchil"), ("como pongo una ofrnda", "como_ofrenda"),
     ("¿Qué es el mictlna?", "mictlan"), ("¿Quién creó a la catirna?", "catrina"), ("¿Cuál es tu color favorito?", "sin_coincidencia"),
+    ("Gracias", "gracias"), ("muchas gracias Xolo", "gracias"), ("grcias", "gracias"), ("Por favor", "por_favor"),
+    ("porfa", "por_favor"), ("¡Gracias! ¿Qué es el pan de muerto?", "pan_muerto"), ("¿Qué día cae, por favor?", "fecha"),
+    ("¿Cómo pongo una ofrenda, por favor?", "como_ofrenda"), ("Hola, gracias", "saludo"),
 ]
 
 class TestMotor(unittest.TestCase):
