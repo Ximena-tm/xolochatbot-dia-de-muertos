@@ -422,9 +422,19 @@
         "espacio",
         "extraterrestre",
         "planeta",
-        "jupiter"
+        "planetas",
+        "jupiter",
+        "venus",
+        "saturno",
+        "mercurio",
+        "neptuno",
+        "urano",
+        "pluton",
+        "galaxia",
+        "universo",
+        "estrellas"
       ],
-      "respuesta": "No tengo información de que el Día de Muertos se celebre en Marte. Mis fuentes lo describen como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. Puedo contarte sobre eso.",
+      "respuesta": "No tengo información de que el Día de Muertos se celebre en el espacio ni en otros planetas o astros. Mis fuentes lo describen como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. Puedo contarte sobre eso.",
       "fuentes": []
     },
     "sin_coincidencia": {

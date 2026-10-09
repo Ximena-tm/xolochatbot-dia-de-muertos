@@ -14,7 +14,10 @@ CASOS = [
     ("¿Qué significa el papel picado?", "papel_picado"), ("¿Qué es el Mictlán?", "mictlan"),
     ("¿Quién creó a la Catrina?", "catrina"), ("¿Qué es una calavera literaria?", "calavera_literaria"),
     ("¿Quién es el xoloitzcuintle?", "xoloitzcuintle"), ("¿Quién eres?", "quien_eres"), ("Hola", "saludo"),
-    ("¿En Marte se hace Día de Muertos?", "fuera_de_dominio"), ("¿Cuál es tu color favorito?", "sin_coincidencia"),
+    ("¿En Marte se hace Día de Muertos?", "fuera_de_dominio"), ("¿Y en Júpiter?", "fuera_de_dominio"),
+    ("¿Se celebra en jupitr?", "fuera_de_dominio"), ("¿Qué es el pan de muerot?", "pan_muerto"),
+    ("¿Qué significa el cempasuchl?", "cempasuchil"), ("como pongo una ofrnda", "como_ofrenda"),
+    ("¿Qué es el mictlna?", "mictlan"), ("¿Quién creó a la catirna?", "catrina"), ("¿Cuál es tu color favorito?", "sin_coincidencia"),
 ]
 
 class TestMotor(unittest.TestCase):
