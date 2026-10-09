@@ -25,7 +25,15 @@
         "dia de muertos",
         "significa",
         "en que consiste",
-        "de que trata"
+        "de que trata",
+        "cuentame sobre eso",
+        "cuentame mas",
+        "dime mas",
+        "hablame de eso",
+        "hablame del tema",
+        "platicame de eso",
+        "explicame eso",
+        "sobre eso"
       ],
       "respuesta": "Es una celebración mexicana para honrar la memoria de los seres queridos que ya fallecieron. Se cree que sus almas regresan a casa por una noche para convivir con la familia y nutrirse de la esencia de los alimentos de la ofrenda. Para los mexicanos la muerte no es ausencia, sino una presencia viva.",
       "fuentes": [
@@ -434,7 +442,7 @@
         "universo",
         "estrellas"
       ],
-      "respuesta": "No tengo información de que el Día de Muertos se celebre en el espacio ni en otros planetas o astros. Mis fuentes lo describen como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. Puedo contarte sobre eso.",
+      "respuesta": "No tengo información de que el Día de Muertos se celebre en el espacio ni en otros planetas o astros. Mis fuentes lo describen como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. Si quieres, pregúntame ¿Qué es el Día de Muertos? y te cuento.",
       "fuentes": []
     },
     "sin_coincidencia": {
