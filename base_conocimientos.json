@@ -1,0 +1,469 @@
+{
+  "meta": {
+    "tema": "Día de Muertos en México",
+    "version": "0.4",
+    "nota": "El experto del sistema son únicamente las fuentes listadas. Keywords en minúsculas y sin acentos."
+  },
+  "fuentes": {
+    "INAFED": "INAFED (gob.mx), 'Día de Muertos, tradición mexicana que trasciende en el tiempo', 2019",
+    "SADER": "Secretaría de Agricultura y Desarrollo Rural (gob.mx), 'Día de Muertos, la fiesta más emotiva de México', 2021",
+    "INAH": "V. J. Santos Ramírez, 'El origen del Día de Muertos', INAH",
+    "CNN": "CNN en Español, '¿Cuál es el origen e historia del Día de Muertos?', 31/10/2025",
+    "SRE": "SRE-AMEXCID, 'Día de Muertos' (recetario y elementos de la ofrenda)",
+    "UNAM": "UNAM, Dirección de CENDI, 'Día de Muertos: elementos de la ofrenda' (con datos del INPI)",
+    "EMBAJADA": "Embajada de México en Uruguay, 'Día de Muertos' 2020",
+    "INPI": "INPI, 'Antología: El Día de Muertos entre los pueblos indígenas de México', 2020",
+    "ECONOMISTA": "El Economista, R. Melgoza Delgado, 'Cómo armar tu ofrenda de Día de Muertos: 12 elementos clave y el lugar perfecto para colocarla', 27/10/2024 (nota periodística; consejos de ubicación de la decoradora Ana Paola Torreblanca)",
+    "XOLO": "SADER-DGSIAP (gob.mx), 'La leyenda del Xoloitzcuintle, el perro azteca' (https://www.gob.mx/agricultura%7Cdgsiap/es/articulos/la-leyenda-del-xoloitzcuintle-el-perro-azteca)"
+  },
+  "reglas": [
+    {
+      "id": "que_es",
+      "pregunta_ejemplo": "¿Qué es el Día de Muertos?",
+      "keywords": [
+        "que es",
+        "dia de muertos",
+        "significa",
+        "en que consiste",
+        "de que trata"
+      ],
+      "respuesta": "Es una celebración mexicana para honrar la memoria de los seres queridos que ya fallecieron. Se cree que sus almas regresan a casa por una noche para convivir con la familia y nutrirse de la esencia de los alimentos de la ofrenda. Para los mexicanos la muerte no es ausencia, sino una presencia viva.",
+      "fuentes": [
+        "INAFED",
+        "SADER",
+        "EMBAJADA"
+      ]
+    },
+    {
+      "id": "fecha",
+      "pregunta_ejemplo": "¿Qué día se celebra? / ¿Qué día cae?",
+      "keywords": [
+        "que dia",
+        "cuando",
+        "fecha",
+        "cae",
+        "noviembre",
+        "octubre"
+      ],
+      "respuesta": "Las fechas fuertes son el 1 y 2 de noviembre. El 1 es Todos los Santos, dedicado a los niños o 'muertos chiquitos'; el 2 es Fieles Difuntos, dedicado a los adultos. Según SADER, desde el 28 de octubre se ofrenda a quienes murieron de forma trágica, y el 30 y 31 a niños no bautizados; en la práctica la celebración empieza a finales de octubre. Las ofrendas para niños ('angelitos') se montan el 31 de octubre y se cree que sus ánimas llegan el 1 de noviembre (El Economista).",
+      "fuentes": [
+        "INAFED",
+        "SADER",
+        "CNN",
+        "ECONOMISTA"
+      ]
+    },
+    {
+      "id": "historia",
+      "pregunta_ejemplo": "¿Cuál es su historia u origen?",
+      "keywords": [
+        "historia",
+        "origen",
+        "como surgio",
+        "prehispanico",
+        "de donde viene",
+        "quien invento",
+        "origen del dia de muertos",
+        "historia del dia de muertos",
+        "cual es el origen",
+        "cual es la historia"
+      ],
+      "respuesta": "Hay dos versiones. La más común (INAFED, SADER, CNN) dice que nace del sincretismo entre rituales prehispánicos de culto a los muertos y el calendario católico que trajeron los españoles. El historiador Víctor Joel Santos (INAH) sostiene que las fiestas del 1 y 2 de noviembre son de origen europeo medieval y llegaron a México en el siglo XVI; los rituales funerarios mesoamericanos eran distintos y en otras fechas. Muchos elementos actuales se fueron sumando en los siglos XIX y XX.",
+      "fuentes": [
+        "INAFED",
+        "SADER",
+        "CNN",
+        "INAH"
+      ]
+    },
+    {
+      "id": "como_ofrenda",
+      "pregunta_ejemplo": "¿Cómo pongo una ofrenda?",
+      "keywords": [
+        "como pongo",
+        "como poner",
+        "como hacer",
+        "armar",
+        "montar",
+        "altar",
+        "ofrenda"
+      ],
+      "respuesta": "1) Elige el lugar: la entrada (hospitalidad), la sala o comedor (convivencia), cerca de una ventana (luz que guía a las almas) o un rincón con significado para la persona. 2) Arma el altar en niveles (lo más común son tres: cielo, tierra e inframundo) y cúbrelo con petate, mantel o papel picado. 3) Pon la foto de la persona a quien honras. 4) Agrega velas o veladoras, copal o incienso, agua y sal. 5) Coloca flores de cempasúchil, incluso haciendo un caminito hacia el altar. 6) Pon su comida y bebida favoritas, pan de muerto y calaveritas de azúcar. Si enciendes veladoras, no las dejes sin supervisión.",
+      "fuentes": [
+        "SRE",
+        "UNAM",
+        "EMBAJADA",
+        "SADER",
+        "ECONOMISTA"
+      ]
+    },
+    {
+      "id": "elementos",
+      "pregunta_ejemplo": "¿Qué lleva una ofrenda?",
+      "keywords": [
+        "que lleva",
+        "elementos",
+        "que se pone",
+        "que va",
+        "contiene",
+        "no pueden faltar"
+      ],
+      "respuesta": "Fotografías (el elemento más importante), velas o veladoras (luz que guía a las ánimas), copal o incienso (limpia y ahuyenta malos espíritus), agua (alivia la sed del alma), sal (purificación), flor de cempasúchil, papel picado (representa el viento), pan de muerto, calaveritas de azúcar, petate (lugar de descanso para las almas), un arco (simboliza la entrada al mundo de los muertos), una cruz (introducida por los evangelizadores españoles), fruta de temporada, licor si el difunto era adulto y la comida y bebida favoritas del difunto. En altares de niños también se pone un juguete de izcuintle, dulces de alfeñique y arroz con leche.",
+      "fuentes": [
+        "SRE",
+        "UNAM",
+        "SADER",
+        "EMBAJADA",
+        "ECONOMISTA"
+      ]
+    },
+    {
+      "id": "niveles",
+      "pregunta_ejemplo": "¿Cuántos niveles lleva el altar y qué significan?",
+      "keywords": [
+        "niveles",
+        "escalones",
+        "pisos",
+        "cuantos niveles",
+        "capas"
+      ],
+      "respuesta": "Depende de la tradición. Dos niveles representan cielo y tierra; tres niveles, cielo, tierra e inframundo (el más común); siete niveles es la versión más completa, por los pasos que las almas deben recorrer hacia el descanso eterno. En Oaxaca los altares se dividen en escalones: el primero para abuelos o adultos y los demás para el resto.",
+      "fuentes": [
+        "ECONOMISTA",
+        "SRE",
+        "UNAM",
+        "INAFED"
+      ]
+    },
+    {
+      "id": "ofrenda_ninos",
+      "pregunta_ejemplo": "¿Cómo es la ofrenda para niños?",
+      "keywords": [
+        "ninos",
+        "angelitos",
+        "muertos chiquitos",
+        "chiquitos",
+        "bebes",
+        "infantil"
+      ],
+      "respuesta": "Se dedica a los 'angelitos' o 'muertos chiquitos'. Predominan los colores blancos (pureza), todo va a menor escala y se ofrecen alimentos sin picante: dulces de alfeñique, frutas, panes, arroz con leche y juguetes de barro. El 1 de noviembre se dedica a los niños y el 2 a los adultos.",
+      "fuentes": [
+        "ECONOMISTA",
+        "UNAM",
+        "INAFED"
+      ]
+    },
+    {
+      "id": "cempasuchil",
+      "pregunta_ejemplo": "¿Qué significa el cempasúchil?",
+      "keywords": [
+        "cempasuchil",
+        "flor",
+        "flores",
+        "naranja",
+        "amarilla",
+        "zempoalxochitl"
+      ],
+      "respuesta": "La flor de cempasúchil (del náhuatl zempoalxóchitl) guía a las almas con su color y aroma. Se esparcen pétalos formando un camino desde la puerta (o el panteón) hasta la ofrenda. También se usan otras flores como nube y alhelí.",
+      "fuentes": [
+        "SADER",
+        "SRE",
+        "UNAM",
+        "INAFED",
+        "CNN"
+      ]
+    },
+    {
+      "id": "pan_muerto",
+      "pregunta_ejemplo": "¿Qué es el pan de muerto?",
+      "keywords": [
+        "pan de muerto",
+        "pan",
+        "huesos",
+        "pan muerto"
+      ],
+      "respuesta": "Es el pan tradicional de la ofrenda, hecho con harina, huevo, mantequilla, azúcar y agua de azahar o ralladura de naranja; lleva tiras que semejan huesos y una bolita al centro como cráneo. Su simbolismo varía según la fuente: ciclo de la vida y la muerte (SADER), generosidad y regalo de la tierra (UNAM), fraternidad y ciclo de vida y muerte (El Economista), recuerdo de sacrificios prehispánicos (SRE). Según el historiador Zarauz (CNN), no es prehispánico, porque entonces no existía la harina de trigo.",
+      "fuentes": [
+        "SRE",
+        "SADER",
+        "UNAM",
+        "CNN",
+        "ECONOMISTA"
+      ]
+    },
+    {
+      "id": "calaveras_azucar",
+      "pregunta_ejemplo": "¿Qué son las calaveritas de azúcar?",
+      "keywords": [
+        "calavera",
+        "calaveras",
+        "calaveritas",
+        "calaveritas de azucar",
+        "azucar",
+        "craneos"
+      ],
+      "respuesta": "Las calaveritas de azúcar representan a los difuntos de la familia. Según la SRE evocan los cráneos humanos que se ofrendaban a los dioses; la SADER explica que antes se usaban cráneos de verdad y luego se sustituyeron por calaveras de azúcar, chocolate o amaranto.",
+      "fuentes": [
+        "SRE",
+        "SADER",
+        "UNAM"
+      ]
+    },
+    {
+      "id": "regiones",
+      "pregunta_ejemplo": "¿Cómo se celebra en distintas regiones?",
+      "keywords": [
+        "region",
+        "regiones",
+        "estados",
+        "donde",
+        "oaxaca",
+        "patzcuaro",
+        "janitzio",
+        "mixquic",
+        "xochimilco",
+        "cuetzalan",
+        "san miguel",
+        "como se celebra",
+        "en que estados"
+      ],
+      "respuesta": "Se celebra en todo el país con variantes. En Mixquic (CDMX) el 2 de noviembre es 'La Alumbrada', con miles de velas en las tumbas. En Oaxaca los altares se arman en escalones y la ciudad se ilumina con ofrendas. En Pátzcuaro y la isla de Janitzio (Michoacán) hay canoas con velas y vigilia en el panteón. También destacan Xochimilco, Cuetzalán (Puebla) y San Miguel de Allende (Festival La Calaca). El INPI documenta además tradiciones de pueblos indígenas en Campeche, Chiapas, Chihuahua, San Luis Potosí, Sinaloa, Sonora y Veracruz.",
+      "fuentes": [
+        "INAFED",
+        "EMBAJADA",
+        "INPI"
+      ]
+    },
+    {
+      "id": "halloween",
+      "pregunta_ejemplo": "¿Es lo mismo que Halloween?",
+      "keywords": [
+        "halloween",
+        "brujas",
+        "disfraz",
+        "igual",
+        "diferencia",
+        "lo mismo"
+      ],
+      "respuesta": "Son celebraciones distintas. El embajador Víctor Manuel Barceló afirma que Halloween no tiene que ver con la tradición mexicana, que es de otras culturas. El INAH añade que Halloween se relaciona con el Samhain celta, una fiesta de año nuevo del 31 de octubre en la que se creía que los difuntos volvían; la Iglesia hizo coincidir Todos los Santos (1 de noviembre) con esa fecha, y en Estados Unidos las calabazas sustituyeron a los nabos con vela. Para los mexicanos, en cambio, el Día de Muertos es una presencia viva y un homenaje a los difuntos.",
+      "fuentes": [
+        "EMBAJADA",
+        "INAH"
+      ]
+    },
+    {
+      "id": "unesco",
+      "pregunta_ejemplo": "¿Es Patrimonio de la Humanidad?",
+      "keywords": [
+        "unesco",
+        "patrimonio",
+        "humanidad",
+        "reconocimiento"
+      ],
+      "respuesta": "Sí. La UNESCO reconoció las fiestas indígenas dedicadas a los muertos como Patrimonio Cultural Inmaterial de la Humanidad. Las fuentes dan dos años: 2003 (proclamación como 'Obra maestra') y 2008 (inscripción en la Lista Representativa).",
+      "fuentes": [
+        "INAFED",
+        "SRE",
+        "EMBAJADA",
+        "CNN"
+      ]
+    },
+    {
+      "id": "ubicacion_altar",
+      "pregunta_ejemplo": "¿Dónde coloco el altar en mi casa?",
+      "keywords": [
+        "donde coloco",
+        "donde poner",
+        "donde pongo",
+        "donde va el altar",
+        "lugar",
+        "ubicacion",
+        "ventana",
+        "entrada",
+        "sala"
+      ],
+      "respuesta": "Se sugiere la entrada principal (simboliza hospitalidad), la sala o el comedor (espacios de convivencia familiar), cerca de una ventana (la luz natural guía a las almas) o un rincón que recuerde a la persona honrada.",
+      "fuentes": [
+        "ECONOMISTA"
+      ]
+    },
+    {
+      "id": "comida_ofrenda",
+      "pregunta_ejemplo": "¿Qué comida y bebida se pone en la ofrenda?",
+      "keywords": [
+        "que comida",
+        "que comer",
+        "que bebida",
+        "platillos",
+        "platillo",
+        "comida de la ofrenda",
+        "tamales",
+        "mole",
+        "atole",
+        "alimentos",
+        "frutas"
+      ],
+      "respuesta": "Se ponen los platillos y bebidas favoritos del difunto. Tradicionalmente: tamales, atole, mole con pollo, champurrado o chocolate de agua, calabaza en tacha, café de olla, dulce de tejocote y frutas de temporada como caña, tejocote, naranja, mandarina, guayaba y jícama. Para adultos puede haber tequila, pulque o mezcal. Para niños: dulces de alfeñique y arroz con leche, sin picante.",
+      "fuentes": [
+        "UNAM",
+        "SADER",
+        "SRE",
+        "ECONOMISTA"
+      ]
+    },
+    {
+      "id": "receta_pan_muerto",
+      "pregunta_ejemplo": "¿Cómo se hace el pan de muerto?",
+      "keywords": [
+        "receta",
+        "como se hace el pan",
+        "como hacer pan de muerto",
+        "hacer pan de muerto",
+        "preparar pan",
+        "hornear",
+        "ingredientes"
+      ],
+      "respuesta": "Receta de la chef Diana Kennedy (SRE), en tres pasos. 1) Siembra: mezclar 500 g de harina, 15 g de sal, 60 g de azúcar, 30 g de levadura, agua y 3 huevos, y dejar reposar unas 2 horas. 2) Masa final: unir la siembra con 250 g de azúcar, 210 g de mantequilla, 500 g de harina, 8 yemas y agua de azahar o ralladura de naranja; reposar unas 1.5 horas. 3) Bolillo: formar el pan con 3/4 de la masa, agregar tiras como huesos y una bolita como cráneo con el otro cuarto, barnizar con yema, hornear a 190 °C de 15 a 20 minutos y, al sacarlo, barnizar con mantequilla y espolvorear azúcar.",
+      "fuentes": [
+        "SRE"
+      ]
+    },
+    {
+      "id": "papel_picado",
+      "pregunta_ejemplo": "¿Qué significa el papel picado?",
+      "keywords": [
+        "papel picado",
+        "picado",
+        "viento"
+      ],
+      "respuesta": "El papel picado representa el viento, uno de los cuatro elementos (agua, tierra, viento y fuego) que debe evocar la ofrenda; su movimiento hace presente ese elemento y da color al altar. La UNAM añade que representa la unión entre la vida y la muerte.",
+      "fuentes": [
+        "SADER",
+        "SRE",
+        "UNAM"
+      ]
+    },
+    {
+      "id": "mictlan",
+      "pregunta_ejemplo": "¿Qué es el Mictlán?",
+      "keywords": [
+        "mictlan",
+        "inframundo",
+        "a donde van los muertos",
+        "rio chiconauhuapan"
+      ],
+      "respuesta": "Según el Gran Diccionario Náhuatl, mictlan significa 'infierno' o 'lugar de muertos', adonde llegaban los fallecidos por muerte natural tras un proceso de cuatro años. En la época prehispánica se enterraba al difunto envuelto en un petate y la familia hacía una fiesta para guiarlo en su recorrido. Según la tradición, el izcuintle (perrito) guía las almas por el río Chiconauhuapan hacia el Mictlán. Para los pueblos originarios no había castigo ni premio: la ruta dependía del tipo de muerte.",
+      "fuentes": [
+        "CNN",
+        "INAFED",
+        "ECONOMISTA",
+        "EMBAJADA"
+      ]
+    },
+    {
+      "id": "catrina",
+      "pregunta_ejemplo": "¿Quién creó a la Catrina?",
+      "keywords": [
+        "catrina",
+        "la catrina",
+        "posada",
+        "huesuda"
+      ],
+      "respuesta": "La Catrina se atribuye al ilustrador José Guadalupe Posada y es el símbolo más reconocido del Día de Muertos. Las fuentes difieren en la época: finales del siglo XIX (CNN) o inicios del XX (SRE). Según la SRE, con ella los mexicanos buscan halagar a la muerte para que pase 'de lado' sin llevárselos; el INAH ve en los grabados de Posada una muestra del carácter divertido y desacralizado que ya tenía la fiesta.",
+      "fuentes": [
+        "CNN",
+        "SRE",
+        "INAH"
+      ]
+    },
+    {
+      "id": "calavera_literaria",
+      "pregunta_ejemplo": "¿Qué es una calavera literaria?",
+      "keywords": [
+        "calavera literaria",
+        "calaveras literarias",
+        "literaria",
+        "versos",
+        "rima",
+        "poema"
+      ],
+      "respuesta": "Es una composición tradicional en versos y rimas, de tono pícaro, irónico y burlón pero sin faltar al respeto, escrita a una persona querida. Suele aludir a la muerte como 'la huesuda' o 'la catrina' y es un homenaje cómico a quien se dirige. Según CNN, las 'calaveritas' surgen a finales del siglo XIX junto con las ilustraciones de Posada.",
+      "fuentes": [
+        "EMBAJADA",
+        "CNN"
+      ]
+    },
+    {
+      "id": "xoloitzcuintle",
+      "pregunta_ejemplo": "¿Quién es el xoloitzcuintle?",
+      "keywords": [
+        "xoloitzcuintle",
+        "xolo",
+        "xolotl",
+        "izcuintle",
+        "itzcuintle",
+        "perrito",
+        "perro azteca",
+        "perro sin pelo",
+        "perro"
+      ],
+      "respuesta": "El xoloitzcuintle es un perro sin pelo, o con un poco solo en la cabeza y la punta de la cola, considerado sagrado por los aztecas por su asociación con el dios Xólotl: dios de la muerte, del Oeste, de los espíritus y de los gemelos, protector del inframundo, con cabeza de perro y hermano de Quetzalcóatl. Según la leyenda guiaba a los muertos al inframundo (hacia el Mictlán, por el río Chiconauhuapan, según El Economista) y tenía poderes mágicos para proteger a los vivos. Hoy se le recuerda durante el Día de Muertos, y en los altares infantiles se coloca un juguete de izcuintle.",
+      "fuentes": [
+        "XOLO",
+        "ECONOMISTA"
+      ]
+    }
+  ],
+  "fallback": {
+    "fuera_de_dominio": {
+      "keywords": [
+        "marte",
+        "luna",
+        "espacio",
+        "extraterrestre",
+        "planeta",
+        "jupiter"
+      ],
+      "respuesta": "No tengo información de que el Día de Muertos se celebre en Marte. Mis fuentes lo describen como una tradición mexicana, reconocida por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. Puedo contarte sobre eso.",
+      "fuentes": []
+    },
+    "sin_coincidencia": {
+      "respuesta": "No tengo una respuesta segura para eso. Puedes preguntarme por la fecha, el origen, cómo poner una ofrenda, sus elementos, el cempasúchil, el pan de muerto, las calaveras y la Catrina, cómo se celebra en distintas regiones o la diferencia con Halloween.",
+      "fuentes": []
+    }
+  },
+  "personaje": {
+    "nombre": "Xolo",
+    "saludo_inicial": "¡Guau! Soy Xolo, un xoloitzcuintle. Según la leyenda, los perros como yo guiamos a las almas hasta el Mictlán, y hoy te guío por el Día de Muertos. Pregúntame lo que quieras; te diré en qué fuentes me baso.",
+    "reglas": [
+      {
+        "id": "quien_eres",
+        "keywords": [
+          "quien eres",
+          "como te llamas",
+          "tu nombre",
+          "que eres",
+          "eres un perro"
+        ],
+        "respuesta": "Soy Xolo, un xoloitzcuintle. Mi tarea es guiarte por el Día de Muertos, igual que, según la leyenda, mi raza guía a las almas al Mictlán. Mi conocimiento viene solo de las fuentes que consulto; si algo no lo sé, te lo digo.",
+        "fuentes": [
+          "XOLO"
+        ]
+      },
+      {
+        "id": "saludo",
+        "keywords": [
+          "hola",
+          "buenas",
+          "buenos dias",
+          "buenas tardes",
+          "buenas noches",
+          "hey",
+          "saludos"
+        ],
+        "respuesta": "¡Guau, hola! Pregúntame sobre el Día de Muertos: fechas, origen, cómo poner una ofrenda, el pan de muerto, la Catrina, el Mictlán o lo que se te ocurra.",
+        "fuentes": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xolo, guía del Día de Muertos</title>
+<style>
+:root{--bg:#2a1240;--card:#3b1d58;--naranja:#f59f00;--crema:#fff4dc;--texto:#2b1b3d}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);font-family:system-ui,Segoe UI,Arial,sans-serif;color:var(--crema);display:flex;justify-content:center}
+.app{width:100%;max-width:760px;display:flex;flex-direction:column;height:100vh}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-bottom:3px solid var(--naranja)}
+header svg{width:64px;height:70px;flex:none}
+header h1{font-size:1.2rem;margin:0}
+header p{margin:2px 0 0;font-size:.82rem;opacity:.8}
+#chat{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:85%;padding:10px 14px;border-radius:16px;line-height:1.45;white-space:pre-line}
+.xolo{align-self:flex-start;background:var(--crema);color:var(--texto);border-bottom-left-radius:4px}
+.yo{align-self:flex-end;background:var(--naranja);color:#2b1b00;border-bottom-right-radius:4px}
+.src{display:block;margin-top:8px;font-size:.78rem;color:#6b4a8a;white-space:normal}
+.src b{cursor:help;border-bottom:1px dotted #6b4a8a}
+.escribiendo{opacity:.7;font-style:italic}
+.chips{padding:0 16px 8px}
+.chips summary{cursor:pointer;font-size:.85rem;color:var(--naranja);margin-bottom:6px}
+.chips div{display:flex;flex-wrap:wrap;gap:6px;max-height:110px;overflow-y:auto}
+.chip{background:transparent;border:1px solid var(--naranja);color:var(--crema);border-radius:14px;padding:4px 10px;font-size:.8rem;cursor:pointer}
+.chip:hover{background:var(--naranja);color:#2b1b00}
+form{display:flex;gap:8px;padding:12px 16px;background:var(--card)}
+input{flex:1;padding:10px 14px;border-radius:20px;border:none;font-size:1rem}
+button.enviar{background:var(--naranja);border:none;border-radius:20px;padding:0 20px;font-weight:700;cursor:pointer}
+.cola{transform-origin:150px 190px;animation:mueve 1.2s ease-in-out infinite}
+@keyframes mueve{50%{transform:rotate(14deg)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <svg viewBox="0 0 200 225" aria-label="Xolo, un xoloitzcuintle">
+      <g class="cola"><path d="M146 200 Q186 190 180 150" stroke="#5a5a6a" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M180 150 q4-14 -2-20" stroke="#2c2c36" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+      <path d="M52 72 Q16 22 40 6 Q76 20 84 62Z" fill="#6b6b7b"/><path d="M148 72 Q184 22 160 6 Q124 20 116 62Z" fill="#6b6b7b"/>
+      <path d="M52 62 Q36 30 44 16 Q66 28 72 58Z" fill="#c9a0a8"/><path d="M148 62 Q164 30 156 16 Q134 28 128 58Z" fill="#c9a0a8"/>
+      <ellipse cx="100" cy="172" rx="48" ry="46" fill="#5a5a6a"/>
+      <ellipse cx="78" cy="214" rx="17" ry="9" fill="#6b6b7b"/><ellipse cx="122" cy="214" rx="17" ry="9" fill="#6b6b7b"/>
+      <ellipse cx="100" cy="92" rx="50" ry="47" fill="#6b6b7b"/>
+      <path d="M92 46 q-4-14 -10-18 M100 45 q0-16 0-22 M108 46 q4-14 10-18" stroke="#2c2c36" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M80 62 q20-8 40 0 M84 70 q16-6 32 0" stroke="#55556a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="100" cy="110" rx="25" ry="19" fill="#8a8a9a"/>
+      <circle cx="82" cy="86" r="8" fill="#fff"/><circle cx="118" cy="86" r="8" fill="#fff"/>
+      <circle cx="83" cy="87" r="4.5" fill="#111"/><circle cx="119" cy="87" r="4.5" fill="#111"/>
+      <circle cx="84.5" cy="85" r="1.5" fill="#fff"/><circle cx="120.5" cy="85" r="1.5" fill="#fff"/>
+      <ellipse cx="100" cy="102" rx="9" ry="6" fill="#222"/>
+      <path d="M90 115 Q100 125 110 115" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <g fill="#f59f00"><circle cx="64" cy="142" r="10"/><circle cx="82" cy="148" r="10"/><circle cx="100" cy="151" r="10"/><circle cx="118" cy="148" r="10"/><circle cx="136" cy="142" r="10"/></g>
+      <g fill="#ffd43b"><circle cx="64" cy="142" r="4"/><circle cx="82" cy="148" r="4"/><circle cx="100" cy="151" r="4"/><circle cx="118" cy="148" r="4"/><circle cx="136" cy="142" r="4"/></g>
+    </svg>
+    <div><h1>Xolo, tu guía del Día de Muertos</h1><p>Respondo solo con lo que dicen mis fuentes.</p></div>
+  </header>
+  <div id="chat" role="log" aria-live="polite"></div>
+  <details class="chips" open><summary>Preguntas que puedes hacerme</summary><div id="chips"></div></details>
+  <form id="form">
+    <input id="entrada" autocomplete="off" placeholder="Escribe tu pregunta…" aria-label="Tu pregunta">
+    <button class="enviar" type="submit">Enviar</button>
+  </form>
+</div>
+<script src="motor.js"></script>
+<script>
+const chat = document.getElementById("chat");
+let motor;
+
+function burbuja(clase, texto, fuentes) {
+  const d = document.createElement("div");
+  d.className = "msg " + clase;
+  d.textContent = texto;
+  if (fuentes && fuentes.length) {
+    const s = document.createElement("span");
+    s.className = "src";
+    s.append("Fuentes: ");
+    fuentes.forEach((f, i) => {
+      const b = document.createElement("b");
+      b.textContent = f.clave; b.title = f.texto;
+      s.append(b, i < fuentes.length - 1 ? " · " : "");
+    });
+    d.append(s);
+  }
+  chat.append(d);
+  chat.scrollTop = chat.scrollHeight;
+  return d;
+}
+
+function preguntar(texto) {
+  texto = texto.trim();
+  if (!texto || !motor) return;
+  burbuja("yo", texto);
+  const espera = burbuja("xolo escribiendo", "Xolo está olfateando sus fuentes…");
+  setTimeout(() => {
+    espera.remove();
+    const r = motor.responder(texto);
+    burbuja("xolo", r.respuesta, r.fuentes);
+  }, 600);
+}
+
+document.getElementById("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const i = document.getElementById("entrada");
+  preguntar(i.value); i.value = "";
+});
+
+fetch("base_conocimientos.json")
+  .then(r => r.json())
+  .then(kb => {
+    motor = new MotorInferencia(kb);
+    burbuja("xolo", kb.personaje.saludo_inicial);
+    const cont = document.getElementById("chips");
+    kb.reglas.forEach(r => {
+      const c = document.createElement("button");
+      c.className = "chip"; c.type = "button";
+      c.textContent = r.pregunta_ejemplo;
+      c.onclick = () => preguntar(r.pregunta_ejemplo);
+      cont.append(c);
+    });
+  })
+  .catch(() => burbuja("xolo", "No pude cargar mi base de conocimientos. Si abriste el archivo con doble clic, inicia un servidor local con: python -m http.server y entra a http://localhost:8000"));
+</script>
+</body>
+</html>
