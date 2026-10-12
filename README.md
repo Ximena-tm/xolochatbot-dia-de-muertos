@@ -6,6 +6,12 @@ Sistema experto conversacional basado en reglas que responde preguntas sobre el 
 
 Proyecto individual de la materia de Sistemas Inteligentes (unidad de Sistemas Expertos). **El experto del dominio son las fuentes documentales** listadas abajo: el sistema no usa conocimiento externo y cada respuesta indica de qué fuentes proviene.
 
+## Público y alcance (MVP / demo)
+
+- **Usuarios:** estudiantes de **secundaria** (12 a 15 años). Las respuestas están escritas en lenguaje sencillo y cortas; el texto completo y más técnico de cada fuente está disponible con el botón **"Ver más detalle"**. Los pasos con fuego u horno incluyen un aviso de seguridad.
+- **Entregable:** una **demo funcional** (MVP) publicada en GitHub Pages, con un árbol de 4 ramas y 21 temas.
+- **Fuera del MVP** (siguientes iteraciones): más temas, voz, otros idiomas, pruebas con estudiantes reales y ajuste del vocabulario según sus preguntas.
+
 ## Reto
 
 Mucha gente (sobre todo las generaciones jóvenes y quienes nunca han armado una ofrenda) desconoce el significado, el origen y la forma de celebrar el Día de Muertos. Xolo responde estas dudas de forma **consistente y justificada**, y declara cuando no tiene información (por ejemplo, si le preguntas si se celebra en Marte).
@@ -27,28 +33,64 @@ flowchart LR
 |---|---|
 | Experto del dominio | Las fuentes documentales |
 | Ingeniero del conocimiento | La ingeniera extrae y contrasta la información |
-| Base de conocimientos | `base_conocimientos.json`: reglas de producción con palabras clave, respuesta y fuentes, más las respuestas de cortesía y del personaje |
+| Base de conocimientos | `base_conocimientos.json`: árbol de marcos (palabras clave, respuesta, detalle, fuentes, avisos), más filtros de dominio y respuestas de cortesía |
 | Motor de inferencia | `motor.js` (el que corre en la página web) y `chatbot.py` (la misma lógica en Python, usada para las pruebas automáticas) |
 | Interfaz | Página web publicada en GitHub Pages (`index.html`) |
+
+## El árbol de conocimiento
+
+La base de conocimientos es un **árbol de marcos** (*slot-and-filler*). Cada nodo es un marco con slots (`etiqueta`, `keywords`, `respuesta`, `detalle`, `fuentes`, `aviso`, `icono`) y `hijos` son los nodos que lo tienen como **isa**. Va de lo general (arriba) a lo específico (abajo):
+
+```mermaid
+flowchart TD
+    R["🌼 Día de Muertos<br/>(raíz)"] --> T["📅 Fechas e historia"]
+    R --> O["🕯️ La ofrenda"]
+    R --> S["💀 Personajes y creencias"]
+    R --> C["🌎 Hoy y en el mundo"]
+    T --> fecha[Cuándo se celebra]
+    T --> hist[De dónde viene] --> sinc[Sincretismo]
+    O --> como["Cómo armarla ⚠️"] --> ub[Dónde ponerla]
+    como --> niv[Cuántos niveles]
+    O --> el[Qué lleva]
+    el --> cemp[Cempasúchil]
+    el --> pp[Papel picado]
+    el --> cal[Calaveritas de azúcar]
+    el --> pan[Pan de muerto] --> rec["Receta ⚠️"]
+    O --> com[Comida y bebida]
+    O --> nin[Ofrenda de niños]
+    S --> mic[Mictlán]
+    S --> xol[Xoloitzcuintle]
+    S --> cat[Catrina]
+    S --> cl[Calavera literaria]
+    C --> reg[Regiones]
+    C --> hal[Halloween]
+    C --> une[UNESCO]
+```
+
+(⚠️ = nodo con aviso de seguridad. `saludo` y `quien_eres` son nodos ocultos bajo la raíz: se encuentran al escribir, no salen en el menú.)
+
+**Herencia.** Un nodo hereda los slots que no define, subiendo por `isa` (el algoritmo "propiedad de herencia"): se busca el valor en el nodo; si no lo tiene, se pasa al padre, y así hasta la raíz; si nadie lo tiene, falla. Ejemplos: *Cuántos niveles lleva* y *Dónde ponerla* heredan el `aviso` de las veladoras de *Cómo armarla*; todos los temas de la rama *La ofrenda* heredan su `icono`. Cada nodo declara sus propias `fuentes` para que cada respuesta cite solo lo que le corresponde.
+
+**Dos formas de recorrerlo:** escribiendo una pregunta (el motor baja por el árbol) o tocando los botones (el usuario baja, y puede subir con "Volver a…"). En ambos casos se muestra la **ruta** recorrida, por ejemplo *Día de Muertos › La ofrenda › Qué lleva › Pan de muerto*.
 
 ### Cómo razona el motor
 
 1. **Normaliza** la pregunta: minúsculas, sin acentos ni signos, y corrige errores de ortografía comparándola con el vocabulario de la base.
 2. **Cortesía:** quita frases como "gracias" o "por favor" para que no estorben. Si la pregunta es solo de cortesía (por ejemplo, "gracias"), Xolo responde con amabilidad.
 3. **Filtro de dominio:** si menciona algo ajeno (Marte, la Luna…), responde que no tiene información.
-4. **Puntaje:** cada regla suma la longitud de las palabras clave que aparecen en la pregunta (las específicas pesan más).
-5. **Selecciona** la regla de mayor puntaje; si no alcanza el umbral (3), responde "sin coincidencia".
-6. **Justifica:** devuelve la respuesta junto con las fuentes de la regla.
+4. **Puntaje:** cada nodo suma la longitud de las palabras clave que aparecen en la pregunta (las específicas pesan más).
+5. **Baja por el árbol:** desde la raíz entra al hijo cuyo subárbol puntúa más, mientras supere al nodo actual. Se detiene en el nodo más específico que explica la pregunta; si no alcanza el umbral (3), responde "sin coincidencia". (Los filtros de dominio actúan como **poda**: esas preguntas nunca entran al árbol.)
+6. **Justifica:** devuelve la respuesta, la ruta, las fuentes, el aviso heredado y los temas hijos para seguir explorando.
 
 ## Estructura del repositorio
 
 ```
 .
-├── base_conocimientos.json   # reglas, fuentes, personaje y cortesía
+├── base_conocimientos.json   # árbol de conocimiento, fuentes, filtros y cortesía
 ├── index.html                # interfaz web con Xolo (la página publicada)
 ├── motor.js                  # motor de inferencia que usa la página web
 ├── chatbot.py                # el mismo motor en Python (base de las pruebas)
-├── test_chatbot.py           # pruebas automáticas del motor
+├── test_chatbot.py           # pruebas del motor y de la estructura del árbol
 └── README.md
 ```
 
@@ -69,6 +111,8 @@ python -m http.server 8000
 python test_chatbot.py
 ```
 
+También hay modo consola: `python chatbot.py`.
+
 ## Preguntas que responde
 
 | Tema | Ejemplo |
@@ -81,6 +125,7 @@ python test_chatbot.py
 | Símbolos | ¿Qué significa el cempasúchil? · ¿Qué significa el papel picado? · ¿Qué son las calaveritas de azúcar? · ¿Quién creó a la Catrina? · ¿Qué es una calavera literaria? |
 | Creencias | ¿Qué es el Mictlán? · ¿Quién es el xoloitzcuintle? |
 | Contexto | ¿Cómo se celebra en Oaxaca? · ¿Es lo mismo que Halloween? · ¿Es Patrimonio de la Humanidad por la UNESCO? |
+| Explorar con botones | Tocar *La ofrenda* › *Qué lleva* › *Pan de muerto* › *Receta del pan* |
 | Fuera de dominio | ¿En Marte se hace Día de Muertos? |
 | Personaje y cortesía | ¿Quién eres? · Hola · Gracias · Por favor |
 
@@ -107,6 +152,18 @@ Cuando las fuentes discrepan, el sistema presenta ambas posturas en lugar de ele
 - **UNESCO:** 2003 (proclamación) o 2008 (inscripción en la Lista Representativa).
 - **Niveles del altar:** tres (SRE, UNAM) o dos, tres o siete (El Economista).
 
+## Fases de desarrollo
+
+El proyecto sigue las fases de construcción de un sistema experto vistas en clase, de forma incremental:
+
+| Fase | Qué se hizo |
+|---|---|
+| Identificación | Reto: jóvenes que desconocen el Día de Muertos; público de secundaria |
+| Conceptualización | Conceptos clave y relaciones extraídos de las fuentes |
+| Formalización | Estructura elegida: árbol *isa* de marcos con herencia |
+| Implementación | `chatbot.py` / `motor.js` e `index.html` |
+| Testeo | `test_chatbot.py` (casos del motor y validez del árbol) |
+
 ## Limitaciones
 
 - El método por palabras clave no entiende el significado: una pregunta que mezcla dos temas se resuelve hacia una sola regla.
@@ -114,4 +171,4 @@ Cuando las fuentes discrepan, el sistema presenta ambas posturas en lugar de ele
 
 ## Agregar conocimiento
 
-Añade un objeto a `reglas` en `base_conocimientos.json` con `id`, `pregunta_ejemplo`, `keywords` (minúsculas, sin acentos), `respuesta` y `fuentes` (claves de la sección `fuentes`). Agrega un caso a `test_chatbot.py` y corre las pruebas. Las respuestas de cortesía ("gracias", "por favor") están en la sección `cortesia` del mismo archivo.
+Añade un nodo en la lista `hijos` del nodo que lo generaliza (su *isa*) dentro de `arbol`, con `id` único, `etiqueta` (texto del botón), `keywords` (minúsculas, sin acentos), `respuesta` (lenguaje sencillo, para secundaria), `detalle` (opcional, texto completo) y `fuentes` (claves de la sección `fuentes`). Si no defines `aviso` o `icono`, los hereda del padre. Agrega un caso a `test_chatbot.py` y corre las pruebas (verifican que el árbol sea válido y que las fuentes existan). Las respuestas de cortesía ("gracias", "por favor") están en la sección `cortesia` del mismo archivo.

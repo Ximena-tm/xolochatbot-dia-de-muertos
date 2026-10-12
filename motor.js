@@ -1,4 +1,4 @@
-// Port a JavaScript del motor de inferencia de chatbot.py (misma lógica).
+// Port a JavaScript de chatbot.py (misma lógica). La base de conocimientos es un ÁRBOL isa de marcos.
 function normalizar(texto) {
   return texto.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "")
     .replace(/[^a-z0-9ñ ]+/g, " ").replace(/\s+/g, " ").trim();
@@ -21,13 +21,36 @@ function distancia(a, b) {
 class MotorInferencia {
   constructor(kb, umbral = 3) {
     this.kb = kb; this.umbral = umbral;
+    this.nodos = {}; this.padre = {};
+    this.indexar(kb.arbol, null);
     const listas = [kb.fallback.fuera_de_dominio.keywords]
-      .concat(kb.reglas.map(r => r.keywords))
-      .concat(((kb.personaje || {}).reglas || []).map(r => r.keywords))
+      .concat(Object.values(this.nodos).map(n => n.keywords))
       .concat(((kb.cortesia || {}).reglas || []).map(r => r.keywords));
     this.vocab = new Set(listas.flat().flatMap(k => k.split(" ")));
   }
 
+  // ---------- el árbol ----------
+  indexar(nodo, padre) {
+    this.nodos[nodo.id] = nodo; this.padre[nodo.id] = padre;
+    (nodo.hijos || []).forEach(h => this.indexar(h, nodo.id));
+  }
+
+  ruta(id) {
+    const camino = [];
+    while (id) { camino.unshift(id); id = this.padre[id]; }
+    return camino;
+  }
+
+  // Propiedad de herencia: si el nodo no tiene el slot, sube por isa al padre.
+  heredar(id, slot) {
+    while (id) {
+      if (slot in this.nodos[id]) return this.nodos[id][slot];
+      id = this.padre[id];
+    }
+    return null;
+  }
+
+  // ---------- lenguaje ----------
   // Corrige errores de ortografía: máx. 1 error (2 si la palabra tiene 9+ letras).
   corregir(pregunta) {
     return pregunta.split(" ").map(w => {
@@ -48,11 +71,7 @@ class MotorInferencia {
     return keywords.reduce((a, k) => a + (texto.includes(` ${k} `) ? k.length : 0), 0);
   }
 
-  fuentesDe(clave) {
-    return clave.map(c => ({ clave: c, texto: this.kb.fuentes[c] }));
-  }
-
-  // Quita frases de cortesía ("gracias", "por favor") para que no estorben al buscar la regla.
+  // Quita frases de cortesía ("gracias", "por favor") para que no estorben al buscar.
   quitarCortesia(q) {
     let reglaC = null;
     for (const regla of (this.kb.cortesia || {}).reglas || []) {
@@ -66,25 +85,63 @@ class MotorInferencia {
     return { q: q.replace(/\s+/g, " ").trim(), cortesia: reglaC };
   }
 
+  // ---------- búsqueda en el árbol ----------
+  mejorEnSubarbol(nodo, q) {
+    let mejor = this.puntaje(q, nodo.keywords);
+    for (const h of nodo.hijos || []) mejor = Math.max(mejor, this.mejorEnSubarbol(h, q));
+    return mejor;
+  }
+
+  // Baja desde la raíz: entra al hijo cuyo subárbol puntúa más, mientras supere al propio nodo.
+  buscar(q) {
+    let nodo = this.kb.arbol;
+    for (;;) {
+      const propio = this.puntaje(q, nodo.keywords);
+      let mejorHijo = null, mejorP = 0;
+      for (const h of nodo.hijos || []) {
+        const p = this.mejorEnSubarbol(h, q);
+        if (p > mejorP) { mejorHijo = h; mejorP = p; }
+      }
+      if (!mejorHijo || mejorP <= propio) return { id: nodo.id, puntaje: propio };
+      nodo = mejorHijo;
+    }
+  }
+
+  fuentesDe(claves) {
+    return claves.map(c => ({ clave: c, texto: this.kb.fuentes[c] }));
+  }
+
+  // Resultado de visitar un nodo (por búsqueda o por tocar un botón del menú).
+  abrir(id) {
+    const n = this.nodos[id];
+    return {
+      respuesta: n.respuesta, detalle: n.detalle || null,
+      fuentes: this.fuentesDe(this.heredar(id, "fuentes") || []),
+      aviso: this.heredar(id, "aviso"), icono: this.heredar(id, "icono"),
+      regla: id, ruta: this.ruta(id),
+      padre: this.padre[id],
+      hijos: (n.hijos || []).filter(h => !h.oculto).map(h => ({ id: h.id, etiqueta: h.etiqueta, icono: this.heredar(h.id, "icono") }))
+    };
+  }
+
+  simple(respuesta, fuentes, regla) {
+    return { respuesta, detalle: null, fuentes, aviso: null, icono: null, regla, ruta: [], padre: null, hijos: [] };
+  }
+
   responder(pregunta) {
     const { q, cortesia } = this.quitarCortesia(this.corregir(normalizar(pregunta)));
     const fb = this.kb.fallback;
     if (this.puntaje(q, fb.fuera_de_dominio.keywords) > 0)
-      return { respuesta: fb.fuera_de_dominio.respuesta, fuentes: [], regla: "fuera_de_dominio" };
+      return this.simple(fb.fuera_de_dominio.respuesta, [], "fuera_de_dominio");
     const op = fb.otros_paises;
     if (op && this.puntaje(q, op.keywords) > 0)
-      return { respuesta: op.respuesta, fuentes: this.fuentesDe(op.fuentes), regla: "otros_paises" };
-    const reglas = this.kb.reglas.concat((this.kb.personaje || {}).reglas || []);
-    let mejor = null, mejorP = 0;
-    for (const r of reglas) {
-      const p = this.puntaje(q, r.keywords);
-      if (p > mejorP) { mejor = r; mejorP = p; }
+      return this.simple(op.respuesta, this.fuentesDe(op.fuentes), "otros_paises");
+    const { id, puntaje } = this.buscar(q);
+    if (puntaje < this.umbral) {
+      if (cortesia) return this.simple(cortesia.respuesta, [], cortesia.id);
+      return this.simple(fb.sin_coincidencia.respuesta, [], "sin_coincidencia");
     }
-    if (!mejor || mejorP < this.umbral) {
-      if (cortesia) return { respuesta: cortesia.respuesta, fuentes: [], regla: cortesia.id };
-      return { respuesta: fb.sin_coincidencia.respuesta, fuentes: [], regla: "sin_coincidencia" };
-    }
-    return { respuesta: mejor.respuesta, fuentes: this.fuentesDe(mejor.fuentes || []), regla: mejor.id };
+    return this.abrir(id);
   }
 }
 
